@@ -1,0 +1,19 @@
+FROM ubuntu:latest
+ARG topic="/node/memory" key="-1"
+
+RUN apt-get update && \
+    apt-get -y install gcc make
+
+WORKDIR /app
+
+RUN mkdir scripts
+COPY ./makefile ./productor.c ./
+COPY ./scripts/cpu_usage ./scripts/cpu_usage
+COPY ./scripts/memory_usage ./scripts/memory_usage
+
+RUN make productor
+
+ENV TOPIC="/node/memory"
+ENV KEY="-1"
+
+CMD ./productor $TOPIC $KEY

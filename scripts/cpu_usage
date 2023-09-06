@@ -1,0 +1,4 @@
+#!/bin/env sh
+
+cpu_usage=$(printf '%3d%%\n' "$((100 - $(top -bn1 | sed -n '/Cpu(s)/s/.*, *\([0-9.]*\)\..* id.*/\1/p')))")
+echo -n $cpu_usage

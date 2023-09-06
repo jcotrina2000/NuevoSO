@@ -1,0 +1,16 @@
+ARG TOPIC="/node/memory" KEY="-1"
+
+FROM ubuntu:latest
+ARG TOPIC KEY
+
+RUN apt-get update && \
+    apt-get -y install gcc make
+
+WORKDIR /app
+COPY ./makefile ./consumidor.c ./
+RUN make consumidor
+
+ENV TOPIC "/node/memory"
+ENV KEY "-1"
+
+CMD ./consumidor $TOPIC $KEY

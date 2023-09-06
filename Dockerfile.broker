@@ -1,0 +1,10 @@
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get -y install gcc make
+
+WORKDIR /app
+COPY ./makefile ./broker.c ./hashmap.* ./
+RUN make broker
+
+CMD ["/bin/sh", "-c", "./broker"]
